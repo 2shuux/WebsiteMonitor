@@ -7,7 +7,7 @@ Run instructions:
     messaging. The instructions for enabling delayed messaging can be found here:
     https://www.rabbitmq.com/blog/2015/04/16/scheduling-messages-with-rabbitmq/
 
-    There are two modules that must be running: WebServer and TaskConsumer. Each
+    There are two modules that should be running: WebServer and TaskConsumer. Each
     project has a <module>EntryPoint containing the main program. Configuration
     is managed by editting the config.json files in the respective resource
     directories of the respective modules. The default configuration points at
@@ -39,7 +39,7 @@ Tech dependencies and considerations:
     multiple consumers of jobs across multiple processes. I have a bit less trust
     in Quartz, and I believed Rabbit would be easier to set up.
 
-    This also depends on the google mail service; I didn't want to require us to
+    This also depends on the google mail services; I didn't want to require us to
     be running our own SMTP server locally.
 
     I wanted the task objects to contain all state for processing an iteration
@@ -92,12 +92,12 @@ Scalability and future extensions:
     and that might just take care of itself... although I do wonder how delayed exchanges
     and durable queues work... There's some talk on the delayed exchange plugin about
     where the task is held before it posts to the queue. I'd have to read more into
-    that. And on the persistence note, that lack of atomic task swap with rabbit irks
+    that. And on the persistent note, that lack of atomic task swap with rabbit irks
     me even more, as it's possible to lose jobs through that. That feels even worse
     once you expect jobs to persist across system restarts.
 
 Security:
     I put a password in a source file for an email account for testing. Then I thought;
     oh I'll put it in a config file, and not distribute the config file. Then I remembered;
-    it's now in source history even if I delete the head revision of the file. Obviously.
+    it's now in source history, even if I delete the head revision of the file. Obviously.
     Oops. Well I guess I'll just leave it there... one less thing to set up to run it...
